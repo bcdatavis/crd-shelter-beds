@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Shelter Beds Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #layer-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            font-family: sans-serif;
+            font-size: 14px;
+            border-radius: 4px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Layer toggle control -->
+<div id="layer-toggle">
+    <label><input type="radio" name="layer" value="total" checked> Total Beds</label><br>
+    <label><input type="radio" name="layer" value="yr_rnd"> Year-Round Beds - All Clients 19+</label><br>
+    <label><input type="radio" name="layer" value="women"> Year-Round Beds - Women 19+ only</label><br>
+    <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
+    <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- PapaParse for CSV parsing -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+<script>
+    const map = L.map('map').setView([48.58842, -123.50967], 10);
+
+    // Basemap
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Marker layers
+    const totalLayer = L.layerGroup().addTo(map);
+    const yrRndLayer = L.layerGroup();
+    const womenLayer = L.layerGroup();
+    const youthLayer = L.layerGroup();
+    const tempLayer = L.layerGroup();
+
+    const csvUrl = 'https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/shelter_list.csv';
+
+    Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            results.data.forEach(row => {
+                const coord = row.coordinates?.trim();
+                if (!coord) return;
+                const [lng, lat] = coord.split(',').map(Number);
+                if (isNaN(lat) || isNaN(lng)) return;
+
+                const operator = row.operator_name || 'Unknown operator';
+                const address = row.physical_address || 'Unknown address';
+
+                // Total beds
+                const total = parseInt(row.beds_total);
+                if (!isNaN(total)) {
+                    L.circleMarker([lat, lng], {
+                        radius: Math.sqrt(total),
+                        color: 'blue',
+                        fillColor: 'skyblue',
+                        fillOpacity: 0.6,
+                        weight: 1
+                    }).bindPopup(`
+                        <strong>${operator}</strong><br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Total Beds:</strong> ${total}
+                    `).addTo(totalLayer);
+                }
+
+                // Year-round beds
+                const yrRnd = parseInt(row.beds_yr_rnd_all);
+                if (!isNaN(yrRnd)) {
+                    L.circleMarker([lat, lng], {
+                        radius: Math.sqrt(yrRnd),
+                        color: 'darkred',
+                        fillColor: 'salmon',
+                        fillOpacity: 0.6,
+                        weight: 1
+                    }).bindPopup(`
+                        <strong>${operator}</strong><br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Year-Round Beds (All 19+):</strong> ${yrRnd}
+                    `).addTo(yrRndLayer);
+                }
+
+                // Women beds
+                const women = parseInt(row.beds_yr_rnd_women);
+                if (!isNaN(women)) {
+                    L.circleMarker([lat, lng], {
+                        radius: Math.sqrt(women),
+                        color: 'purple',
+                        fillColor: 'violet',
+                        fillOpacity: 0.6,
+                        weight: 1
+                    }).bindPopup(`
+                        <strong>${operator}</strong><br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Year-Round Beds (Women):</strong> ${women}
+                    `).addTo(womenLayer);
+                }
+
+                // Youth beds
+                const youth = parseInt(row.beds_yr_rnd_youth);
+                if (!isNaN(youth)) {
+                    L.circleMarker([lat, lng], {
+                        radius: Math.sqrt(youth),
+                        color: 'green',
+                        fillColor: 'lightgreen',
+                        fillOpacity: 0.6,
+                        weight: 1
+                    }).bindPopup(`
+                        <strong>${operator}</strong><br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Year-Round Beds (Youth):</strong> ${youth}
+                    `).addTo(youthLayer);
+                }
+
+                // Temporary beds
+                const temp = parseInt(row.beds_temp);
+                if (!isNaN(temp)) {
+                    L.circleMarker([lat, lng], {
+                        radius: Math.sqrt(temp),
+                        color: 'orange',
+                        fillColor: 'gold',
+                        fillOpacity: 0.6,
+                        weight: 1
+                    }).bindPopup(`
+                        <strong>${operator}</strong><br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Temporary Beds:</strong> ${temp}
+                    `).addTo(tempLayer);
+                }
+            });
+        }
+    });
+
+    // Layer toggle logic
+    const layers = {
+        total: totalLayer,
+        yr_rnd: yrRndLayer,
+        women: womenLayer,
+        youth: youthLayer,
+        temp: tempLayer
+    };
+
+    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+        radio.addEventListener('change', e => {
+            const selected = e.target.value;
+            Object.entries(layers).forEach(([key, layer]) => {
+                if (key === selected) {
+                    map.addLayer(layer);
+                } else {
+                    map.removeLayer(layer);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
