@@ -41,8 +41,8 @@
     <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
     <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
 
-    <strong>Polygon Layer</strong><br>
-    <label><input type="checkbox" id="municipal-boundaries"> Municipal Boundaries (WMS)</label>
+    <strong>Polygon Layers</strong><br>
+    <label><input type="checkbox" id="municipal-boundaries" checked> Legally Defined Administrative Areas of BC</label>
 </div>
 
 <!-- Leaflet JS -->
@@ -70,7 +70,7 @@
         version: '1.1.1',
         srs: 'EPSG:4326',
         opacity: 0.5
-    });
+    }).addTo(map);
 
     // --- Point layers ---
     const totalLayer = L.layerGroup().addTo(map);
