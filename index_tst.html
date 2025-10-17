@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,17 +151,17 @@
         temp: tempLayer
     };
 
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+    const layerRadios = document.querySelectorAll('input[name="layer"]');
+    
+    layerRadios.forEach(radio => {
         radio.addEventListener('change', e => {
-            const selected = e.target.value;
-            Object.entries(layers).forEach(([key, layer]) => {
-                if (key === selected) {
-                    map.addLayer(layer);
-                    layer.bringToFront();
-                } else {
-                    map.removeLayer(layer);
-                }
-            });
+            // First remove all layers
+            Object.values(layers).forEach(layer => map.removeLayer(layer));
+    
+            // Then add only the selected one
+            const selectedLayer = layers[e.target.value];
+            map.addLayer(selectedLayer);
+            selectedLayer.bringToFront();
         });
     });
 
@@ -200,7 +201,7 @@
     // GeoJSON of the boundary of the City of Victoria
     const victoriaLayer = L.geoJSON(null, {
         style: {
-            color: 'purple',
+            color: 'green',
             weight: 2,
             opacity: 0.5
         },
