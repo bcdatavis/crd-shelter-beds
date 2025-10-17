@@ -9,9 +9,19 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        h2 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
         #map {
             width: 100%;
-            height: calc(100vh - 80px);
+            height: calc(100vh - 40px);
         }
 
         #layer-toggle {
@@ -20,7 +30,6 @@
             right: 10px;
             background: white;
             padding: 10px;
-            font-family: sans-serif;
             font-size: 14px;
             border-radius: 4px;
             box-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -30,7 +39,7 @@
 </head>
 <body>
 
-<h2 style="margin: 10px 0;">CRD Shelter Beds</h2>
+<h2>CRD Shelter Beds</h2>
 
 <div id="map"></div>
 
@@ -53,21 +62,20 @@
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <!-- PapaParse for CSV parsing -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 
 <script>
     const map = L.map('map').setView([48.4801,-123.4085], 10);
 
-    // Basemap
+    // Basemap - CARTO Voyager
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://carto.com/">CARTO</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
 
-    // --- WMS Polygon Layer ---
+    // WMS Layer
     const municipalLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/wms', {
         layers: 'pub:WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP',
         styles: '410_5381',
@@ -78,7 +86,7 @@
         opacity: 0.5
     }).addTo(map);
 
-    // --- Point layers ---
+    // Point Layers
     const totalLayer = L.layerGroup().addTo(map);
     const yrRndLayer = L.layerGroup();
     const womenLayer = L.layerGroup();
@@ -104,10 +112,10 @@
                 const addMarker = (layer, value, color, fill) => {
                     if (!isNaN(value)) {
                         L.circleMarker([lat, lng], {
-                            radius: Math.sqrt(value),
+                            radius: Math.max(4, Math.sqrt(value)),
                             color: color,
                             fillColor: fill,
-                            fillOpacity: 0.6,
+                            fillOpacity: 0.8,
                             weight: 1
                         }).bindPopup(`
                             <strong>${operator}</strong><br>
@@ -123,10 +131,17 @@
                 addMarker(youthLayer, parseInt(row.beds_yr_rnd_youth), 'black', 'gold');
                 addMarker(tempLayer, parseInt(row.beds_temp), 'black', 'darkorange');
             });
+
+            // Bring point layers to front (clickable points over polygons)
+            totalLayer.bringToFront();
+            yrRndLayer.bringToFront();
+            womenLayer.bringToFront();
+            youthLayer.bringToFront();
+            tempLayer.bringToFront();
         }
     });
 
-    // Layer toggle logic
+    // Layer toggling
     const layers = {
         total: totalLayer,
         yr_rnd: yrRndLayer,
@@ -141,6 +156,7 @@
             Object.entries(layers).forEach(([key, layer]) => {
                 if (key === selected) {
                     map.addLayer(layer);
+                    layer.bringToFront();
                 } else {
                     map.removeLayer(layer);
                 }
@@ -157,13 +173,14 @@
         }
     });
 
-    // --- GeoJSON Layer for District of Saanich ---
+    // GeoJSON of the boundary of the District of Saanich
     const saanichLayer = L.geoJSON(null, {
         style: {
             color: 'green',
             weight: 2,
             opacity: 0.5
-        }
+        },
+        interactive: false
     }).addTo(map);
 
     fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/District_of_Saanich.geojson')
@@ -180,13 +197,14 @@
         }
     });
 
-    // --- GeoJSON Layer for City of Victoria ---
+    // GeoJSON of the boundary of the City of Victoria
     const victoriaLayer = L.geoJSON(null, {
         style: {
-            color: 'green',
+            color: 'purple',
             weight: 2,
             opacity: 0.5
-        }
+        },
+        interactive: false
     }).addTo(map);
 
     fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/City_of_Victoria.geojson')
@@ -202,7 +220,6 @@
             map.removeLayer(victoriaLayer);
         }
     });
-
 </script>
 
 </body>
