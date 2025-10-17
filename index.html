@@ -1,17 +1,28 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Shelter Beds Map</title>
+    <title>CRD Shelter Beds</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        h2 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
         #map {
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 40px);
         }
 
         #layer-toggle {
@@ -20,7 +31,6 @@
             right: 10px;
             background: white;
             padding: 10px;
-            font-family: sans-serif;
             font-size: 14px;
             border-radius: 4px;
             box-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -30,34 +40,54 @@
 </head>
 <body>
 
+<h2>CRD Shelter Beds</h2>
+
 <div id="map"></div>
 
 <!-- Layer toggle control -->
 <div id="layer-toggle">
+    <strong>Shelter Beds</strong><br>
     <label><input type="radio" name="layer" value="total" checked> Total Beds</label><br>
     <label><input type="radio" name="layer" value="yr_rnd"> Year-Round Beds - All Clients 19+</label><br>
     <label><input type="radio" name="layer" value="women"> Year-Round Beds - Women 19+ only</label><br>
     <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
-    <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label>
+    <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
+
+    <strong>CRD Municipalities - All</strong><br>
+    <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label><br>
+    
+    <strong>CRD Municipalities - With Shelters</strong><br>
+    <label><input type="checkbox" id="city-of-victoria" checked> City of Victoria</label><br>
+    <label><input type="checkbox" id="district-of-saanich" checked> District of Saanich</label>
 </div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <!-- PapaParse for CSV parsing -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 
 <script>
-    const map = L.map('map').setView([48.58842, -123.50967], 10);
+    const map = L.map('map').setView([48.4801,-123.4085], 10);
 
-    // Basemap
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    // Basemap - CARTO Voyager
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://carto.com/">CARTO</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
 
-    // Marker layers
+    // WMS Layer
+    const municipalLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/wms', {
+        layers: 'pub:WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP',
+        styles: '410_5381',
+        format: 'image/png',
+        transparent: true,
+        version: '1.1.1',
+        srs: 'EPSG:4326',
+        opacity: 0.5
+    }).addTo(map);
+
+    // Point Layers
     const totalLayer = L.layerGroup().addTo(map);
     const yrRndLayer = L.layerGroup();
     const womenLayer = L.layerGroup();
@@ -80,90 +110,39 @@
                 const operator = row.operator_name || 'Unknown operator';
                 const address = row.physical_address || 'Unknown address';
 
-                // Total beds
-                const total = parseInt(row.beds_total);
-                if (!isNaN(total)) {
-                    L.circleMarker([lat, lng], {
-                        radius: Math.sqrt(total),
-                        color: 'blue',
-                        fillColor: 'skyblue',
-                        fillOpacity: 0.6,
-                        weight: 1
-                    }).bindPopup(`
-                        <strong>${operator}</strong><br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Total Beds:</strong> ${total}
-                    `).addTo(totalLayer);
-                }
+                const addMarker = (layer, value, color, fill) => {
+                    if (!isNaN(value) && value > 0) {
+                        L.circleMarker([lat, lng], {
+                            radius: Math.sqrt(value),
+                            color: color,
+                            fillColor: fill,
+                            fillOpacity: 0.8,
+                            weight: 1
+                        }).bindPopup(`
+                            <strong>${operator}</strong><br>
+                            <strong>Address:</strong> ${address}<br>
+                            <strong>Beds:</strong> ${value}
+                        `).addTo(layer);
+                    }
+                };
 
-                // Year-round beds
-                const yrRnd = parseInt(row.beds_yr_rnd_all);
-                if (!isNaN(yrRnd)) {
-                    L.circleMarker([lat, lng], {
-                        radius: Math.sqrt(yrRnd),
-                        color: 'darkred',
-                        fillColor: 'salmon',
-                        fillOpacity: 0.6,
-                        weight: 1
-                    }).bindPopup(`
-                        <strong>${operator}</strong><br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Year-Round Beds (All 19+):</strong> ${yrRnd}
-                    `).addTo(yrRndLayer);
-                }
-
-                // Women beds
-                const women = parseInt(row.beds_yr_rnd_women);
-                if (!isNaN(women)) {
-                    L.circleMarker([lat, lng], {
-                        radius: Math.sqrt(women),
-                        color: 'purple',
-                        fillColor: 'violet',
-                        fillOpacity: 0.6,
-                        weight: 1
-                    }).bindPopup(`
-                        <strong>${operator}</strong><br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Year-Round Beds (Women):</strong> ${women}
-                    `).addTo(womenLayer);
-                }
-
-                // Youth beds
-                const youth = parseInt(row.beds_yr_rnd_youth);
-                if (!isNaN(youth)) {
-                    L.circleMarker([lat, lng], {
-                        radius: Math.sqrt(youth),
-                        color: 'green',
-                        fillColor: 'lightgreen',
-                        fillOpacity: 0.6,
-                        weight: 1
-                    }).bindPopup(`
-                        <strong>${operator}</strong><br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Year-Round Beds (Youth):</strong> ${youth}
-                    `).addTo(youthLayer);
-                }
-
-                // Temporary beds
-                const temp = parseInt(row.beds_temp);
-                if (!isNaN(temp)) {
-                    L.circleMarker([lat, lng], {
-                        radius: Math.sqrt(temp),
-                        color: 'orange',
-                        fillColor: 'gold',
-                        fillOpacity: 0.6,
-                        weight: 1
-                    }).bindPopup(`
-                        <strong>${operator}</strong><br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Temporary Beds:</strong> ${temp}
-                    `).addTo(tempLayer);
-                }
+                addMarker(totalLayer, parseInt(row.beds_total), 'black', 'dodgerblue');
+                addMarker(yrRndLayer, parseInt(row.beds_yr_rnd_all), 'black', 'red');
+                addMarker(womenLayer, parseInt(row.beds_yr_rnd_women), 'black', 'deeppink');
+                addMarker(youthLayer, parseInt(row.beds_yr_rnd_youth), 'black', 'gold');
+                addMarker(tempLayer, parseInt(row.beds_temp), 'black', 'darkorange');
             });
+
+            // Bring point layers to front (clickable points over polygons)
+            totalLayer.bringToFront();
+            yrRndLayer.bringToFront();
+            womenLayer.bringToFront();
+            youthLayer.bringToFront();
+            tempLayer.bringToFront();
         }
     });
 
-    // Layer toggle logic
+    // Layer toggling
     const layers = {
         total: totalLayer,
         yr_rnd: yrRndLayer,
@@ -172,17 +151,75 @@
         temp: tempLayer
     };
 
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+    const layerRadios = document.querySelectorAll('input[name="layer"]');
+    
+    layerRadios.forEach(radio => {
         radio.addEventListener('change', e => {
-            const selected = e.target.value;
-            Object.entries(layers).forEach(([key, layer]) => {
-                if (key === selected) {
-                    map.addLayer(layer);
-                } else {
-                    map.removeLayer(layer);
-                }
-            });
+            // First remove all layers
+            Object.values(layers).forEach(layer => map.removeLayer(layer));
+    
+            // Then add only the selected one
+            const selectedLayer = layers[e.target.value];
+            map.addLayer(selectedLayer);
+            selectedLayer.bringToFront();
         });
+    });
+
+    // WMS Layer toggle
+    document.getElementById('municipal-boundaries').addEventListener('change', function(e) {
+        if (e.target.checked) {
+            map.addLayer(municipalLayer);
+        } else {
+            map.removeLayer(municipalLayer);
+        }
+    });
+
+    // GeoJSON of the boundary of the District of Saanich
+    const saanichLayer = L.geoJSON(null, {
+        style: {
+            color: 'green',
+            weight: 2,
+            opacity: 0.5
+        },
+        interactive: false
+    }).addTo(map);
+
+    fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/District_of_Saanich.geojson')
+        .then(response => response.json())
+        .then(data => {
+            saanichLayer.addData(data);
+        });
+
+    document.getElementById('district-of-saanich').addEventListener('change', function(e) {
+        if (e.target.checked) {
+            map.addLayer(saanichLayer);
+        } else {
+            map.removeLayer(saanichLayer);
+        }
+    });
+
+    // GeoJSON of the boundary of the City of Victoria
+    const victoriaLayer = L.geoJSON(null, {
+        style: {
+            color: 'green',
+            weight: 2,
+            opacity: 0.5
+        },
+        interactive: false
+    }).addTo(map);
+
+    fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/City_of_Victoria.geojson')
+        .then(response => response.json())
+        .then(data => {
+            victoriaLayer.addData(data);
+        });
+
+    document.getElementById('city-of-victoria').addEventListener('change', function(e) {
+        if (e.target.checked) {
+            map.addLayer(victoriaLayer);
+        } else {
+            map.removeLayer(victoriaLayer);
+        }
     });
 </script>
 
