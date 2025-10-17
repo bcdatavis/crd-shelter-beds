@@ -42,7 +42,8 @@
     <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
 
     <strong>Polygon Layers</strong><br>
-    <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label>
+    <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label><br>
+    <label><input type="checkbox" id="district-of-saanich" checked> District of Saanich</label>
 </div>
 
 <!-- Leaflet JS -->
@@ -150,6 +151,31 @@
             map.removeLayer(municipalLayer);
         }
     });
+
+    // --- GeoJSON Layer for District of Saanich ---
+    const saanichLayer = L.geoJSON(null, {
+        style: {
+            color: 'blue',
+            weight: 2,
+            opacity: 0.5
+        }
+    }).addTo(map);
+
+    fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/District_of_Saanich.geojson')
+        .then(response => response.json())
+        .then(data => {
+            saanichLayer.addData(data);
+        });
+
+    // GeoJSON Layer toggle
+    document.getElementById('district-of-saanich').addEventListener('change', function(e) {
+        if (e.target.checked) {
+            map.addLayer(saanichLayer);
+        } else {
+            map.removeLayer(saanichLayer);
+        }
+    });
+
 </script>
 
 </body>
