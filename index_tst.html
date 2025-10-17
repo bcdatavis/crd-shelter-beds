@@ -110,9 +110,9 @@
                 const address = row.physical_address || 'Unknown address';
 
                 const addMarker = (layer, value, color, fill) => {
-                    if (!isNaN(value)) {
+                    if (!isNaN(value) && value > 0) {
                         L.circleMarker([lat, lng], {
-                            radius: Math.max(4, Math.sqrt(value)),
+                            radius: Math.sqrt(value),
                             color: color,
                             fillColor: fill,
                             fillOpacity: 0.8,
