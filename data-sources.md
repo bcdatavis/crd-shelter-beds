@@ -24,12 +24,14 @@
 
 ---
 
-**5. District of Saanich Municipal Boundary:**
-
-* District of Saanich - Open Data Portal - [Municipal Boundary](https://opendata-saanich.hub.arcgis.com/datasets/municipal-boundary-1)
-
----
-
 **5. City of Victoria Municipal Boundary:**
 
 * City of Victoria - ArcGIS REST Services - [City Boundary](https://maps.victoria.ca/server/rest/services/VicMap/Land/MapServer/11)
+
+---
+
+**6. District of Saanich Municipal Boundary:**
+
+* District of Saanich - Open Data Portal - [Municipal Boundary](https://opendata-saanich.hub.arcgis.com/datasets/municipal-boundary-1)
+
+
