@@ -89,6 +89,9 @@
         <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
         <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
 
+        <strong>Heatmap</strong><br>
+        <label><input type="checkbox" id="heatmap-toggle"> Shelter Beds Heatmap</label><br><br>
+
         <strong>CRD Municipalities - All</strong><br>
         <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label><br>
 
@@ -101,6 +104,9 @@
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+<!-- Leaflet Heatmap Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 
 <script>
     // Toggle layer panel
@@ -241,6 +247,59 @@
             map.removeLayer(victoriaLayer);
         }
     });
+
+    // --- Heatmap Layer Setup ---
+
+    let heatLayer;
+
+    fetch('https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/refs/heads/main/data/shelter_heatmap.geojson')
+        .then(res => res.json())
+        .then(data => {
+            // Extract points as [lat, lng, intensity] for heatmap
+            const heatPoints = [];
+
+            data.features.forEach(feature => {
+                if (feature.geometry && feature.geometry.type === "Point") {
+                    const coords = feature.geometry.coordinates;
+                    const lat = coords[1];
+                    const lng = coords[0];
+
+                    let intensity = 1;
+                    if (feature.properties) {
+                        intensity = feature.properties.beds || feature.properties.count || 1;
+                    }
+
+                    heatPoints.push([lat, lng, intensity]);
+                }
+                else if (feature.geometry && feature.geometry.type === "Polygon") {
+                }
+            });
+
+            heatLayer = L.heatLayer(heatPoints, {
+                radius: 25,
+                blur: 15,
+                maxZoom: 17,
+                max: 10, 
+                gradient: {
+                    0.1: 'blue',
+                    0.3: 'cyan',
+                    0.5: 'lime',
+                    0.7: 'yellow',
+                    1.0: 'red'
+                }
+            });
+
+            // Heatmap toggle checkbox listener
+            document.getElementById('heatmap-toggle').addEventListener('change', e => {
+                if (e.target.checked) {
+                    map.addLayer(heatLayer);
+                    heatLayer.bringToFront();
+                } else {
+                    map.removeLayer(heatLayer);
+                }
+            });
+        });
+
 </script>
 
 </body>
