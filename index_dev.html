@@ -266,7 +266,7 @@
 
                     let intensity = 1;
                     if (feature.properties) {
-                        intensity = (feature.properties.beds_total || 1) * 5;
+                        intensity = feature.properties.beds_total || 1;
                     }
 
                     heatPoints.push([lat, lng, intensity]);
@@ -276,7 +276,7 @@
             });
 
             heatLayer = L.heatLayer(heatPoints, {
-                radius: 40,
+                radius: 25,
                 blur: 10,
                 maxZoom: 17,
                 max: 10, 
