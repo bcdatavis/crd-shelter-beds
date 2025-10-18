@@ -276,14 +276,14 @@
 
             heatLayer = L.heatLayer(heatPoints, {
                 radius: 25,
-                blur: 10,
+                blur: 7,
                 maxZoom: 17,
-                max: 30, 
+                max: 20, 
                 gradient: {
-                    0.1: 'rgba(0,0,255,0.6)',    // semi-transparent blue
-                    0.3: 'rgba(0,255,255,0.7)',  // cyan
-                    0.5: 'rgba(0,255,0,0.8)',    // green
-                    0.7: 'rgba(255,255,0,0.9)',  // yellow
+                    0.1: 'rgba(0,0,255,0.9)',    // semi-transparent blue
+                    0.3: 'rgba(0,255,255,0.95)',  // cyan
+                    0.5: 'rgba(0,255,0,1.0)',    // green
+                    0.7: 'rgba(255,255,0,1.0)',  // yellow
                     1.0: 'rgba(255,0,0,1.0)'     // red
                 }
             });
