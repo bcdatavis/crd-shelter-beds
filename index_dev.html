@@ -266,7 +266,7 @@
 
                     let intensity = 1;
                     if (feature.properties) {
-                        intensity = feature.properties.beds || feature.properties.count || 1;
+                        intensity = (feature.properties.beds_total || 1) * 5;
                     }
 
                     heatPoints.push([lat, lng, intensity]);
@@ -276,16 +276,16 @@
             });
 
             heatLayer = L.heatLayer(heatPoints, {
-                radius: 25,
-                blur: 15,
+                radius: 40,
+                blur: 10,
                 maxZoom: 17,
-                max: 100, 
+                max: 10, 
                 gradient: {
-                    0.1: 'blue',
-                    0.3: 'cyan',
-                    0.5: 'lime',
-                    0.7: 'yellow',
-                    1.0: 'red'
+                    0.1: 'rgba(0,0,255,0.6)',    // semi-transparent blue
+                    0.3: 'rgba(0,255,255,0.7)',  // cyan
+                    0.5: 'rgba(0,255,0,0.8)',    // green
+                    0.7: 'rgba(255,255,0,0.9)',  // yellow
+                    1.0: 'rgba(255,0,0,1.0)'     // red
                 }
             });
 
