@@ -198,7 +198,6 @@
             Object.values(layers).forEach(layer => map.removeLayer(layer));
             const selectedLayer = layers[e.target.value];
             map.addLayer(selectedLayer);
-            selectedLayer.bringToFront();
         });
     });
 
