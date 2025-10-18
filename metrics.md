@@ -1,15 +1,25 @@
-Percentage of CRD residents living in a Municipality or Electoral Area with no homeless shelter beds:
+Percentage of CRD residents living in a Municipality or Electoral Area with no shelter beds for unhoused people:
 * 53%
   * (228,292 / 429,352)
 
-Percentage of Municipalities in the CRD with homeless shelter beds:
+Percentage of Municipalities in the CRD with shelter beds for unhoused people:
 * 15%
-  * (2 out of 13)
 
-Percentage of Electoral Areas in the CRD with homeless shelter beds:
-* 33%
-  * (1 out of 3)
-  
+Number of Municipalities in the CRD with shelter beds for unhoused people:
+* 2 (out of 13)
+
+Number of Municipalities in the CRD with NO shelter beds for unhoused people:
+* 11 (out of 13)
+
+Percentage of shelter beds in the 13 CRD municipalities that are in the City of Victoria (2024 est pop: 102,856):
+* 89%
+
+Percentage of shelter beds in the 13 CRD municipalities that are in the District of Saanich (2024 est pop: 125,436):
+* 11%
+
+Percentage of shelter beds in the other 11 CRD municipalities (2024 est pop: 201,060):
+* 0% 
+
 Shelter beds per 1000 residents (Municipalities):
 
 | Municipality | Beds per 1000 | 
@@ -28,11 +38,18 @@ Shelter beds per 1000 residents (Municipalities):
 |Victoria|4|
 |View Royal|0|
 
+Percentage of Electoral Areas in the CRD with shelter beds for unhoused people:
+* 33%
+
+Number of Electoral Areas in the CRD with shelter beds for unhoused people:
+* 1 (out of 3)
+
 Shelter beds per 1000 residents (Electoral Areas):
 | Electoral Area | Beds per 1000 | 
 | :------- | :------: |
 |Juan de Fuca|0|
 |Salt Spring Island|2.4|
 |Southern Gulf Islands|0|
+
 
   
