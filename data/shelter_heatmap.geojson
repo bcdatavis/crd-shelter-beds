@@ -1,16 +1,126 @@
 {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3888785, 48.4554526 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3416309, 48.4263032 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.347014, 48.424869 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3577635, 48.4271129 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3685291, 48.4419362 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3586683, 48.4283078 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3696762, 48.427626 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3607004, 48.4346893 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3716058, 48.4387932 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.3628273, 48.4217199 ] } },
-    { "type": "Feature", "properties": { "weight": 1.0 }, "geometry": { "type": "Point", "coordinates": [ -123.5005062, 48.847073 ] } }
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3888785, 48.4554526]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3416309, 48.4263032]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 76
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.347014, 48.424869]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3577635, 48.4271129]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3685291, 48.4419362]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3586683, 48.4283078]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 53
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3696762, 48.427626]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3607004, 48.4346893]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 114
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3716058, 48.4387932]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.3628273, 48.4217199]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "weight": 1.0,
+        "beds_total": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.5005062, 48.847073]
+      }
+    }
   ]
 }
