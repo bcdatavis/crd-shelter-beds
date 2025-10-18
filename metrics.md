@@ -32,7 +32,7 @@ Shelter beds per 1000 residents (Electoral Areas):
 | Electoral Area | Beds per 1000 | 
 | :------- | :------: |
 |Juan de Fuca|0|
-|Salt Spring Island|2.41|
+|Salt Spring Island|2.4|
 |Southern Gulf Islands|0|
 
   
