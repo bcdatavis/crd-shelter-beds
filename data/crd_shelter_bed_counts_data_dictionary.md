@@ -20,6 +20,6 @@ This file contains shelter bed availability and population estimates for communi
 | `beds_drop_in`            | Integer          | Number of drop-in shelter beds.   |
 | `beds_temp`               | Integer          | Number of temporary shelter beds.        |
 | `beds_total`              | Integer          | Total number of beds available across all categories.  |
-| `beds_per_1000_residents` | Float / Decimal  | Number of shelter beds per 1,000 residents. Calculated as:<br>`(beds_total / pop_est_2024) * 1000`. |
+| `beds_per_1000_residents` | Float  | Number of shelter beds per 1,000 residents. Calculated as:<br>`(beds_total / pop_est_2024) * 1000`. |
 
 ---
