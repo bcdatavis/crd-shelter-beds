@@ -1,6 +1,7 @@
 # crd-shelter-beds
 A comparison of shelter beds provided for unhoused people by each community in the Capital Regional District (CRD), as of October 14, 2025.
   * [Map](https://bcdatavis.github.io/crd-shelter-beds/index.html)
+    *[Dev Map](https://bcdatavis.github.io/crd-shelter-beds/index_dev.html)
   * [Metrics and Data Summary](https://github.com/bcdatavis/crd-shelter-beds/blob/main/metrics.md)
   * Data tables:
     * [Community Summary and Bed Types](https://github.com/bcdatavis/crd-shelter-beds/blob/main/data/crd_shelter_bed_counts.csv)
