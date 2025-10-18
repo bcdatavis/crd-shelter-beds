@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +14,14 @@
             font-family: sans-serif;
         }
 
-        h2 {
-            margin: 10px 0;
-            text-align: center;
+        /* Left-aligned title bar */
+        #title-bar {
+            background: #f7f7f7;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
         }
 
         #map {
@@ -25,58 +29,83 @@
             height: calc(100vh - 40px);
         }
 
-        #layer-toggle {
+        #layer-toggle-container {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: white;
-            padding: 10px;
+            z-index: 1000;
             font-size: 14px;
+        }
+
+        #layer-toggle-header {
+            background: white;
+            padding: 6px 10px;
             border-radius: 4px;
             box-shadow: 0 0 3px rgba(0,0,0,0.3);
-            z-index: 1000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #layer-toggle-content {
+            background: white;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        /* Hide layer content by default if collapsed */
+        .collapsed #layer-toggle-content {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-<h2>CRD Shelter Beds</h2>
+<!-- Title Bar -->
+<div id="title-bar">CRD Shelter Beds</div>
 
+<!-- Map -->
 <div id="map"></div>
 
-<!-- Layer toggle control -->
-<div id="layer-toggle">
-    <strong>Shelter Beds</strong><br>
-    <label><input type="radio" name="layer" value="total" checked> Total Beds</label><br>
-    <label><input type="radio" name="layer" value="yr_rnd"> Year-Round Beds - All Clients 19+</label><br>
-    <label><input type="radio" name="layer" value="women"> Year-Round Beds - Women 19+ only</label><br>
-    <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
-    <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
+<!-- Collapsible Layer Control -->
+<div id="layer-toggle-container" class="collapsed">
+    <div id="layer-toggle-header">Layers</div>
+    <div id="layer-toggle-content">
+        <strong>Shelter Beds</strong><br>
+        <label><input type="radio" name="layer" value="total" checked> Total Beds</label><br>
+        <label><input type="radio" name="layer" value="yr_rnd"> Year-Round Beds - All Clients 19+</label><br>
+        <label><input type="radio" name="layer" value="women"> Year-Round Beds - Women 19+ only</label><br>
+        <label><input type="radio" name="layer" value="youth"> Year-Round Beds - Youth (15-25)</label><br>
+        <label><input type="radio" name="layer" value="temp"> Temporary Beds - All Clients 19+</label><br><br>
 
-    <strong>CRD Municipalities - All</strong><br>
-    <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label><br>
-    
-    <strong>CRD Municipalities - With Shelters</strong><br>
-    <label><input type="checkbox" id="city-of-victoria" checked> City of Victoria</label><br>
-    <label><input type="checkbox" id="district-of-saanich" checked> District of Saanich</label>
+        <strong>CRD Municipalities - All</strong><br>
+        <label><input type="checkbox" id="municipal-boundaries" checked> Municipal Boundaries</label><br>
+
+        <strong>CRD Municipalities - With Shelters</strong><br>
+        <label><input type="checkbox" id="city-of-victoria" checked> City of Victoria</label><br>
+        <label><input type="checkbox" id="district-of-saanich" checked> District of Saanich</label>
+    </div>
 </div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- PapaParse for CSV parsing -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 
 <script>
+    // Toggle layer panel
+    document.getElementById('layer-toggle-header').addEventListener('click', () => {
+        document.getElementById('layer-toggle-container').classList.toggle('collapsed');
+    });
+
     const map = L.map('map').setView([48.4801,-123.4085], 10);
 
-    // Basemap - CARTO Voyager
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://carto.com/">CARTO</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
 
-    // WMS Layer
     const municipalLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/wms', {
         layers: 'pub:WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP',
         styles: '410_5381',
@@ -87,7 +116,6 @@
         opacity: 0.5
     }).addTo(map);
 
-    // Point Layers
     const totalLayer = L.layerGroup().addTo(map);
     const yrRndLayer = L.layerGroup();
     const womenLayer = L.layerGroup();
@@ -133,7 +161,6 @@
                 addMarker(tempLayer, parseInt(row.beds_temp), 'black', 'darkorange');
             });
 
-            // Bring point layers to front (clickable points over polygons)
             totalLayer.bringToFront();
             yrRndLayer.bringToFront();
             womenLayer.bringToFront();
@@ -142,7 +169,6 @@
         }
     });
 
-    // Layer toggling
     const layers = {
         total: totalLayer,
         yr_rnd: yrRndLayer,
@@ -151,21 +177,15 @@
         temp: tempLayer
     };
 
-    const layerRadios = document.querySelectorAll('input[name="layer"]');
-    
-    layerRadios.forEach(radio => {
+    document.querySelectorAll('input[name="layer"]').forEach(radio => {
         radio.addEventListener('change', e => {
-            // First remove all layers
             Object.values(layers).forEach(layer => map.removeLayer(layer));
-    
-            // Then add only the selected one
             const selectedLayer = layers[e.target.value];
             map.addLayer(selectedLayer);
             selectedLayer.bringToFront();
         });
     });
 
-    // WMS Layer toggle
     document.getElementById('municipal-boundaries').addEventListener('change', function(e) {
         if (e.target.checked) {
             map.addLayer(municipalLayer);
@@ -174,13 +194,8 @@
         }
     });
 
-    // GeoJSON of the boundary of the District of Saanich
     const saanichLayer = L.geoJSON(null, {
-        style: {
-            color: 'green',
-            weight: 2,
-            opacity: 0.5
-        },
+        style: { color: 'green', weight: 2, opacity: 0.5 },
         interactive: false
     }).addTo(map);
 
@@ -198,13 +213,8 @@
         }
     });
 
-    // GeoJSON of the boundary of the City of Victoria
     const victoriaLayer = L.geoJSON(null, {
-        style: {
-            color: 'green',
-            weight: 2,
-            opacity: 0.5
-        },
+        style: { color: 'green', weight: 2, opacity: 0.5 },
         interactive: false
     }).addTo(map);
 
