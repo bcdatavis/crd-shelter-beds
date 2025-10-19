@@ -3,8 +3,7 @@
 ## 1. Overview of Shelter Bed Availability
 
 - **Percentage of CRD residents living in a municipality or electoral area with no shelter beds for unhoused people**:  
-  **53%**  
-  *(228,292 / 429,352)*
+  **53%**   *(228,292 / 429,352)*
 
 - **Percentage of Municipalities in the CRD with shelter beds for unhoused people**:  
   **15%**
