@@ -51,8 +51,13 @@
 | **View Royal**       | 0                         |
 
 ---
+## 4. Municipal Population vs. Shelter Beds
 
-## 4. Shelter Bed Availability in Electoral Areas
+![Population vs. Total Beds](https://github.com/bcdatavis/crd-shelter-beds/blob/main/images/population_vs_beds.png)
+
+---
+
+## 5. Shelter Bed Availability in Electoral Areas
 
 - **Percentage of Electoral Areas in the CRD with shelter beds for unhoused people**:  
   **33%**
@@ -62,7 +67,7 @@
 
 ---
 
-## 5. Shelter Beds per 1,000 Residents (Electoral Areas)
+## 6. Shelter Beds per 1,000 Residents (Electoral Areas)
 
 | Electoral Area       | Beds per 1,000 Residents |
 |:---------------------|:-------------------------:|
