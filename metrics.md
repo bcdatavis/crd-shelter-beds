@@ -33,6 +33,7 @@
 ---
 
 ## 3. Shelter Beds per 1,000 Residents (Municipalities)
+
 | Municipality        | Beds per 1,000 Residents |
 |:--------------------|:-------------------------:|
 | **Central Saanich**  | 0                         |
@@ -51,6 +52,7 @@
 
 ---
 ## 4. Municipal Population vs. Shelter Beds
+
 ![Population vs. Total Beds](https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/main/images/population_vs_shelter_beds.png)
 
 ---
