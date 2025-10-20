@@ -53,7 +53,7 @@
 ---
 ## 4. Municipal Population vs. Shelter Beds
 
-![Population vs. Total Beds](https://github.com/bcdatavis/crd-shelter-beds/blob/main/images/population_vs_beds.png)
+![Population vs. Total Beds](https://raw.githubusercontent.com/bcdatavis/crd-shelter-beds/main/images/population_vs_beds.png)
 
 ---
 
