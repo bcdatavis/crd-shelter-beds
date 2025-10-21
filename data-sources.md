@@ -13,6 +13,7 @@
 **3. Shelter bed count and type:**
 
 *Number of beds copied from the BC Housing website on October 14, 2025 and merged based on shelter address.* 
+
 *BC211 was used to confirm that no shelters were missing*
   
 * BC Housing - [Shelter List](https://smap.bchousing.org/)
