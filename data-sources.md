@@ -12,7 +12,8 @@
 
 **3. Shelter bed count and type:**
 
-*Number of beds copied from websites listed below on October 14, 2025 and merged based on shelter address.*
+*Number of beds copied from the BC Housing website on October 14, 2025 and merged based on shelter address.* 
+*BC211 was used to confirm that no shelters were missing*
   
 * BC Housing - [Shelter List](https://smap.bchousing.org/)
 
@@ -20,7 +21,7 @@
 
 ---
 
-**4. CRD Municipal Boundaries:**
+**4. Municipal Boundaries:**
 
 * Government of British Columbia - BC Data Catalogue - [Municipalities - Legally Defined Administrative Areas of BC](https://catalogue.data.gov.bc.ca/dataset/e3c3c580-996a-4668-8bc5-6aa7c7dc4932)
 
