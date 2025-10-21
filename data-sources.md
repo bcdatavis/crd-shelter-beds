@@ -11,7 +11,7 @@
 ---
 
 **3. Shelter bed count and type:**
-- Bed counts and type numbers copied from websites listed below on Oct 14, 2025 and merged based on shelter address.
+*Bed counts and type numbers copied from websites listed below on October 14, 2025 and merged based on shelter address.*
   
 * BC Housing - [Shelter List](https://smap.bchousing.org/)
 
