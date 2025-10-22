@@ -24,6 +24,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Metchosin**  |	5331 | 	0 | 
 | **Highlands**  |	2618 | 	0 | 
 
+<br><br>
 
 
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
@@ -58,6 +59,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Metchosin**  |	5331 | 	13 | 
 | **Highlands**  |	2618 | 	7 | 
 
+<br><br>
 
 
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
