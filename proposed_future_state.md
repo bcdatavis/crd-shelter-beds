@@ -1,6 +1,6 @@
 # Current State vs. Proposed Future State
 
-The following tables compare the total number of shelter beds in the CRD using today's geographically imbalanced approach, vs a proposed future state using proportional bed counts per municipality.
+The following tables compare the total number of shelter beds in the CRD using today's geographically imbalanced approach vs. a proposed future state using proportional bed counts per municipality.
 
 ## 1. Current State (sorted by population): 
 
