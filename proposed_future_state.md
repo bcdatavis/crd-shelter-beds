@@ -1,12 +1,14 @@
+# Current State vs. Proposed Future State
+
 The following tables compare the total number of shelter beds in the CRD using today's geographically imbalanced approach, vs a proposed future state using proportional bed counts per municipality.
 
-Current State (sorted by population): 
+## 1. Current State (sorted by population): 
 
 **Total Shelter Beds:**
   * Municipalities: 461
   * Electoral Areas: 30
 
-| Municipality        |Population Estimate 2024 |  Total Shelter Beds (all types) |
+| **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 | **Saanich**  |	125436 | 50 | 
 | **Victoria**  |	102856	411 | 
 | **Langford**  |	58320 | 	0 | 
@@ -21,13 +23,13 @@ Current State (sorted by population):
 | **Metchosin**  |	5331 | 	0 | 
 | **Highlands**  |	2618 | 	0 | 
 
-| Municipality        |Population Estimate 2024 |  Total Shelter Beds (all types) |
+| **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 | **Salt Spring Island**  |	12448	 | 30 | 
 | **Southern Gulf Islands**  |	6645 | 	0 | 
 | **Juan de Fuca**  |	5930 | 	0 | 
 
 
-**Proposed future state:**
+## 2. Proposed Future State:
   * If each municipality in the CRD provided enough year-round shelter beds for a quarter of one percent of their population (0.0025%)
   * *Numbers below correspond to 2024 population estimates (see [data sources](https://github.com/bcdatavis/crd-shelter-beds/blob/main/data-sources.md))*
 
@@ -35,8 +37,7 @@ Current State (sorted by population):
   * Municipalities: 1073
   * Electoral Areas: 63
 
-
-| Municipality        |Population Estimate 2024 |  Total Shelter Beds (all types) |
+| **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 | **Saanich**  |	125436 | 314 | 
 | **Victoria**  |	102856	257 | 
 | **Langford**  |	58320 | 	146 | 
@@ -51,7 +52,7 @@ Current State (sorted by population):
 | **Metchosin**  |	5331 | 	13 | 
 | **Highlands**  |	2618 | 	7 | 
 
-| Municipality        |Population Estimate 2024 |  Total Shelter Beds (all types) |
+| **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 | **Salt Spring Island**  |	12448	 | 31 | 
 | **Southern Gulf Islands**  |	6645 | 	17 | 
 | **Juan de Fuca**  |	5930 | 	15 | 
