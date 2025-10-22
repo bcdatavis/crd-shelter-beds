@@ -9,6 +9,7 @@ The following tables compare the total number of shelter beds in the CRD using t
   * Electoral Areas: 30
 
 | **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
+|:--------------------|:-------------------------:|:-------------------------:|
 | **Saanich**  |	125436 | 50 | 
 | **Victoria**  |	102856	411 | 
 | **Langford**  |	58320 | 	0 | 
@@ -24,6 +25,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Highlands**  |	2618 | 	0 | 
 
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
+|:--------------------|:-------------------------:|:-------------------------:|
 | **Salt Spring Island**  |	12448	 | 30 | 
 | **Southern Gulf Islands**  |	6645 | 	0 | 
 | **Juan de Fuca**  |	5930 | 	0 | 
@@ -38,6 +40,7 @@ The following tables compare the total number of shelter beds in the CRD using t
   * Electoral Areas: 63
 
 | **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
+|:--------------------|:-------------------------:|:-------------------------:|
 | **Saanich**  |	125436 | 314 | 
 | **Victoria**  |	102856	257 | 
 | **Langford**  |	58320 | 	146 | 
@@ -53,6 +56,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Highlands**  |	2618 | 	7 | 
 
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
+|:--------------------|:-------------------------:|:-------------------------:|
 | **Salt Spring Island**  |	12448	 | 31 | 
 | **Southern Gulf Islands**  |	6645 | 	17 | 
 | **Juan de Fuca**  |	5930 | 	15 | 
