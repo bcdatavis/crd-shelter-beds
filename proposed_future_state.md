@@ -36,6 +36,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 ## 2. Proposed Future State:
   * If each municipality in the CRD provided enough year-round shelter beds for a quarter of one percent of their population (0.0025%)
   * *Numbers below correspond to 2024 population estimates (see [data sources](https://github.com/bcdatavis/crd-shelter-beds/blob/main/data-sources.md))*
+  * *A quarter of one percent was used for demonstration purposes. The ideal proportional amount may be different.*
 
 **Total Shelter Beds:**
   * Municipalities: 1073
