@@ -24,6 +24,8 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Metchosin**  |	5331 | 	0 | 
 | **Highlands**  |	2618 | 	0 | 
 
+
+
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 |:--------------------|:-------------------------:|:-------------------------:|
 | **Salt Spring Island**  |	12448	 | 30 | 
@@ -54,6 +56,8 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **View Royal**  |	12619 | 	32 | 
 | **Metchosin**  |	5331 | 	13 | 
 | **Highlands**  |	2618 | 	7 | 
+
+
 
 | **Electoral Area**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 |:--------------------|:-------------------------:|:-------------------------:|
