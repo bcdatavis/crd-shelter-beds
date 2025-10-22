@@ -11,7 +11,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 |:--------------------|:-------------------------:|:-------------------------:|
 | **Saanich**  |	125436 | 50 | 
-| **Victoria**  |	102856	411 | 
+| **Victoria**  |	102856	| 411 | 
 | **Langford**  |	58320 | 	0 | 
 | **Colwood**  |	22151 | 	0 | 
 | **Esquimalt**  |	19302 | 	0 | 
@@ -42,7 +42,7 @@ The following tables compare the total number of shelter beds in the CRD using t
 | **Municipality**        |**Population Estimate 2024** |  **Total Shelter Beds (all types)** |
 |:--------------------|:-------------------------:|:-------------------------:|
 | **Saanich**  |	125436 | 314 | 
-| **Victoria**  |	102856	257 | 
+| **Victoria**  |	102856	| 257 | 
 | **Langford**  |	58320 | 	146 | 
 | **Colwood**  |	22151 | 	55 | 
 | **Esquimalt**  |	19302 | 	48 | 
